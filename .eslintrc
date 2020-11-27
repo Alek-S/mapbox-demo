@@ -1,0 +1,41 @@
+{
+	"parser": "@typescript-eslint/parser",
+	"extends": [
+		// "airbnb-base",
+		"plugin:@typescript-eslint/recommended",
+		"plugin:react/recommended",
+		"plugin:prettier/recommended",
+		// "plugin:prettier/react",
+		// "plugin:prettier/@typescript-eslint",
+		"plugin:react-hooks/recommended"
+	],
+	"plugins": ["@typescript-eslint", "react", "prettier"],
+	"rules": {
+		"@typescript-eslint/explicit-module-boundary-types": "off",
+		"react/react-in-jsx-scope": "off",
+		"react-hooks/rules-of-hooks": "error",
+		"indent": ["error", "tab", { "SwitchCase": 1 }],
+		"linebreak-style": ["error", "unix"],
+		"quotes": ["warn", "single"],
+		"semi": ["error", "always"],
+		"strict": ["error", "global"],
+		"no-var": "error",
+		"prefer-const": "warn",
+		"no-dupe-keys": "error",
+		"no-func-assign": "error",
+		"no-unreachable": "error",
+		"default-case": "error",
+		"no-else-return": "warn",
+		"block-spacing": "error",
+		"key-spacing": ["error", { "mode": "strict" }],
+		"no-trailing-spaces": "warn",
+		"no-useless-constructor": "error",
+		"prefer-template": "error",
+		"no-shadow": "error",
+		"no-unneeded-ternary": "error",
+		"multiline-ternary": ["warn", "always-multiline"],
+		"no-undef": "error",
+		"no-unused-vars": "error",
+		"no-console": 0
+	}
+}
