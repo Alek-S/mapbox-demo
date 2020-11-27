@@ -2,7 +2,6 @@ import { useContext, FunctionComponent } from 'react';
 import { Marker } from 'react-map-gl';
 
 import { StateContext } from '@store/Context';
-import { MapLayer } from '@store/initialState';
 import { ActionType } from '@store/reducer';
 
 import Pin from '@components/Pin/Pin';
@@ -20,18 +19,18 @@ const MapMarker: FunctionComponent<Props> = (props: Props) => {
 			},
 			markerIndex: props.markerIndex,
 		});
-	}
+	};
 
 	return (
 		<Marker
 			longitude={props.lng}
 			latitude={props.lat}
-			offsetTop={-20}
-			offsetLeft={-10}
+			offsetTop={0}
+			offsetLeft={0}
 			onDragEnd={onMarkerDragEnd}
 			draggable
 		>
-			<Pin size={20} />
+			<Pin size={20} longitude={props.lng} latitude={props.lat} />
 		</Marker>
 	);
 };

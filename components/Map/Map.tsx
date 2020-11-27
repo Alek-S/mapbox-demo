@@ -28,7 +28,7 @@ const Map: FunctionComponent = () => {
 		longitude: -87.6352603,
 		zoom: 15.5,
 		pitch: 50,
-		antialias: true,
+		antialias: false,
 	});
 	const [marker, setMarker] = useState({
 		latitude: 41.89237617397896,
@@ -42,8 +42,6 @@ const Map: FunctionComponent = () => {
 	};
 
 	const addNewMarker = event => {
-		console.log('mouse click', event.lngLat);
-
 		dispatch({
 			type: ActionType.ADD_MARKER,
 			markerData: {
@@ -51,7 +49,6 @@ const Map: FunctionComponent = () => {
 				lat: event.lngLat[1],
 			},
 		});
-		console.log({ state });
 	};
 
 	const onMarkerDragEnd = event => {
@@ -73,28 +70,6 @@ const Map: FunctionComponent = () => {
 				}
 				mapboxApiAccessToken={MAPBOX_TOKEN}
 			>
-				{/* <Marker
-					longitude={marker.longitude}
-					latitude={marker.latitude}
-					offsetTop={-20}
-					offsetLeft={-10}
-					draggable
-					onDragEnd={onMarkerDragEnd}
-				>
-					<Pin size={20} />
-				</Marker> */}
-				{/* {state.markers.map(marker => (
-					<Marker
-						key={`${marker.lat}-${marker.lng}`}
-						longitude={marker.lng}
-						latitude={marker.lat}
-						offsetTop={-20}
-						offsetLeft={-10}
-						draggable={false}
-					>
-						<Pin size={20} />
-					</Marker>
-				))} */}
 				{state.markers.map((marker, index) => (
 					<MapMarker
 						key={`${marker.lat}-${marker.lng}`}
@@ -105,7 +80,7 @@ const Map: FunctionComponent = () => {
 						<Pin size={20} />
 					</MapMarker>
 				))}
-				{/* <Layer {...buildingLayer} /> */}
+				<Layer {...buildingLayer} />
 				{state.isModelVisible && <Layer {...modelLayer} />}
 			</ReactMapGL>
 		</StyledMap>
