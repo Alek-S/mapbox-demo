@@ -1,7 +1,6 @@
-/* eslint-disable no-undef */
-import { useState, useContext, FunctionComponent, useEffect } from 'react';
+import { useState, useContext, FunctionComponent } from 'react';
 import styled from 'styled-components';
-import ReactMapGL, { Layer } from 'react-map-gl';
+import ReactMapGL, { Layer, Marker } from 'react-map-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 
 import {
@@ -11,42 +10,10 @@ import {
 } from '@utils/constants';
 import { StateContext } from '@store/Context';
 import { MapLayer } from '@store/initialState';
+import Pin from '@components/Pin/Pin';
 
 import { modelLayer } from '@components/Map/modelLayer';
-
-const buildingLayer = {
-	id: '3d-buildings',
-	source: 'composite',
-	'source-layer': 'building',
-	filter: ['==', 'extrude', 'true'],
-	type: 'fill-extrusion',
-	minzoom: 15,
-	paint: {
-		'fill-extrusion-color': '#aaa',
-
-		// use an 'interpolate' expression to add a smooth transition effect to the
-		// buildings as the user zooms in
-		'fill-extrusion-height': [
-			'interpolate',
-			['linear'],
-			['zoom'],
-			15,
-			0,
-			15.05,
-			['get', 'height'],
-		],
-		'fill-extrusion-base': [
-			'interpolate',
-			['linear'],
-			['zoom'],
-			15,
-			0,
-			15.05,
-			['get', 'min_height'],
-		],
-		'fill-extrusion-opacity': 0.6,
-	},
-};
+import { buildingLayer } from '@components/Map/extrudeBuildingLayer';
 
 /** Full bleed Mapbox Component */
 const Map: FunctionComponent = () => {
@@ -60,11 +27,23 @@ const Map: FunctionComponent = () => {
 		pitch: 50,
 		antialias: true,
 	});
+	const [marker, setMarker] = useState({
+		latitude: 41.89237617397896,
+		longitude: -87.63408038583424,
+	});
 
 	const getMapStyle = () => {
 		return state.mapLayer === MapLayer.default
 			? MAP_STYLE_LIGHT
 			: MAP_STYLE_SATELLITE;
+	};
+
+	const onMarkerDragEnd = event => {
+		console.log('onMarkerDragEnd', event.lngLat[0], event.lngLat[1]);
+		setMarker({
+			longitude: event.lngLat[0],
+			latitude: event.lngLat[1],
+		});
 	};
 
 	return (
@@ -77,7 +56,19 @@ const Map: FunctionComponent = () => {
 				}
 				mapboxApiAccessToken={MAPBOX_TOKEN}
 			>
-				<Layer {...buildingLayer} />
+				<Marker
+					longitude={marker.longitude}
+					latitude={marker.latitude}
+					offsetTop={-20}
+					offsetLeft={-10}
+					draggable
+					onDragStart={_e => console.log('onMarkerDragStart')}
+					onDrag={_e => console.log('onMarkerDragStart')}
+					onDragEnd={onMarkerDragEnd}
+				>
+					<Pin size={20} />
+				</Marker>
+				{/* <Layer {...buildingLayer} /> */}
 				{state.isModelVisible && <Layer {...modelLayer} />}
 			</ReactMapGL>
 		</StyledMap>

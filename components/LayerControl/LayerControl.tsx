@@ -31,7 +31,7 @@ const LayerControl: FunctionComponent = () => {
 
 	return (
 		<StyledControl>
-			<StyledHeader>Toggle Layers</StyledHeader>
+			<StyledHeader>Map Style</StyledHeader>
 			<StyledForm
 				aria-label="mapStyle"
 				name="mapStyle"
@@ -64,7 +64,6 @@ const LayerControl: FunctionComponent = () => {
 					label="Visible"
 				/>
 			</FormGroup>
-
 		</StyledControl>
 	);
 };
@@ -74,8 +73,8 @@ const StyledControl = styled.div`
 	width: fit-content;
 	font-size: 1rem;
 	z-index: 10;
-	background-color: white;
-	border-radius: 0.25rem;
+	background-color: rgba(255,255,255,0.92);
+	border-radius: 0.5rem;
 	box-shadow: ${({ theme }) => theme.shadows.primary};
 	overflow: hidden;
 	padding: 0;
@@ -100,7 +99,7 @@ const StyledForm = styled(RadioGroup)`
 
 const Divider = styled.div`
 	margin-top: 1.5rem;
-	border-bottom: 1px solid lightgray;
+	border-bottom: 1px solid #e9e9e9;
 	width: 100%;
 `;
 

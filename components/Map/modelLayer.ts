@@ -27,6 +27,7 @@ const modelTransform = {
 	scale: modelAsMercatorCoordinate.meterInMercatorCoordinateUnits(),
 };
 
+/** Mapbox layer object for 3D model */
 export const modelLayer = {
 	id: '3d-model',
 	type: 'custom',
