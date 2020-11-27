@@ -6,12 +6,14 @@ export interface IReducerAction {
 	mapLayer: MapLayer;
 	isModelVisible: boolean;
 	markerData: MarkerData;
+	markerIndex: number;
 }
 
 export enum ActionType {
 	SET_MAP_TYPE = 'SET_MAP_TYPE',
 	TOGGLE_MODEL = 'TOGGLE_MODEL',
 	ADD_MARKER = 'ADD_MARKER',
+	MODIFY_MARKER = 'MODIFY_MARKER',
 }
 
 export const mapLayerReducer = (
@@ -38,6 +40,16 @@ export const mapLayerReducer = (
 			return {
 				...state,
 				markers: state.markers.concat([action.markerData]),
+			};
+
+		case ActionType.MODIFY_MARKER:
+			console.log({ action });
+			const newMarker: MarkerData[] = [...state.markers];
+			newMarker[action.markerIndex] = action.markerData;
+
+			return {
+				...state,
+				markers: newMarker,
 			};
 
 		default:

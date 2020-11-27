@@ -8,13 +8,15 @@ import {
 	MAP_STYLE_SATELLITE,
 	MAP_STYLE_LIGHT,
 } from '@utils/constants';
-import { StateContext } from '@store/Context';
-import { MapLayer } from '@store/initialState';
 import Pin from '@components/Pin/Pin';
-
 import { modelLayer } from '@components/Map/modelLayer';
 import { buildingLayer } from '@components/Map/extrudeBuildingLayer';
+import MapMarker from '@components/MapMarker/MapMarker';
+
+import { StateContext } from '@store/Context';
+import { MapLayer } from '@store/initialState';
 import { ActionType } from '@store/reducer';
+
 
 /** Full bleed Mapbox Component */
 const Map: FunctionComponent = () => {
@@ -81,7 +83,7 @@ const Map: FunctionComponent = () => {
 				>
 					<Pin size={20} />
 				</Marker> */}
-				{state.markers.map(marker => (
+				{/* {state.markers.map(marker => (
 					<Marker
 						key={`${marker.lat}-${marker.lng}`}
 						longitude={marker.lng}
@@ -92,6 +94,16 @@ const Map: FunctionComponent = () => {
 					>
 						<Pin size={20} />
 					</Marker>
+				))} */}
+				{state.markers.map((marker, index) => (
+					<MapMarker
+						key={`${marker.lat}-${marker.lng}`}
+						lng={marker.lng}
+						lat={marker.lat}
+						markerIndex={index}
+					>
+						<Pin size={20} />
+					</MapMarker>
 				))}
 				{/* <Layer {...buildingLayer} /> */}
 				{state.isModelVisible && <Layer {...modelLayer} />}
