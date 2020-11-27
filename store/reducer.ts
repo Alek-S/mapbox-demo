@@ -1,15 +1,17 @@
-import { IState, MapLayer } from '@store/initialState';
+import { IState, MapLayer, MarkerData } from '@store/initialState';
 
 /* eslint-disable no-shadow */
 export interface IReducerAction {
 	type: ActionType;
 	mapLayer: MapLayer;
 	isModelVisible: boolean;
+	markerData: MarkerData;
 }
 
 export enum ActionType {
 	SET_MAP_TYPE = 'SET_MAP_TYPE',
 	TOGGLE_MODEL = 'TOGGLE_MODEL',
+	ADD_MARKER = 'ADD_MARKER',
 }
 
 export const mapLayerReducer = (
@@ -29,6 +31,13 @@ export const mapLayerReducer = (
 			return {
 				...state,
 				isModelVisible: action.isModelVisible,
+			};
+
+		case ActionType.ADD_MARKER:
+			console.log({ action });
+			return {
+				...state,
+				markers: state.markers.concat([action.markerData]),
 			};
 
 		default:
