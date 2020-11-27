@@ -4,7 +4,11 @@ export enum MapLayer {
 	satellite = 'satellite',
 }
 
-const initialState = {
+export interface IState {
+	mapLayer: MapLayer;
+}
+
+const initialState: IState = {
 	mapLayer: MapLayer.default,
 };
 
