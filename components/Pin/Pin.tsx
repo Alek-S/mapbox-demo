@@ -9,8 +9,9 @@ const pinStyle = {
 	stroke: 'none',
 };
 
-const Pin = (props: Props) => {
-	const [weather, setWeather] = useState<Weather>();
+/** UI for the map pin displayed by mapbox marker */
+const Pin: FunctionComponent<Props> = (props: Props) => {
+	const [weather, setWeather] = useState<IWeather>();
 	const { size = 20 } = props;
 
 	useEffect(() => {
@@ -65,7 +66,7 @@ interface Props {
 	latitude: number;
 }
 
-interface Weather {
+interface IWeather {
 	humidity: number;
 	temp: number;
 	description: string;

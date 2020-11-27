@@ -28,7 +28,7 @@ const Map: FunctionComponent = () => {
 		longitude: -87.6352603,
 		zoom: 15.5,
 		pitch: 50,
-		antialias: false,
+		antialias: true,
 	});
 	const [marker, setMarker] = useState({
 		latitude: 41.89237617397896,

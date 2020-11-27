@@ -25,8 +25,8 @@ const MapMarker: FunctionComponent<Props> = (props: Props) => {
 		<Marker
 			longitude={props.lng}
 			latitude={props.lat}
-			offsetTop={0}
-			offsetLeft={0}
+			offsetTop={-10}
+			offsetLeft={-5}
 			onDragEnd={onMarkerDragEnd}
 			draggable
 		>
