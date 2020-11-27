@@ -2,12 +2,14 @@ import { IState, MapLayer } from '@store/initialState';
 
 /* eslint-disable no-shadow */
 export interface IReducerAction {
-	type: 'SET_MAP_TYPE';
-	payload: MapLayer;
+	type: ActionType;
+	mapLayer: MapLayer;
+	isModelVisible: boolean;
 }
 
 export enum ActionType {
 	SET_MAP_TYPE = 'SET_MAP_TYPE',
+	TOGGLE_MODEL = 'TOGGLE_MODEL',
 }
 
 export const mapLayerReducer = (
@@ -16,10 +18,17 @@ export const mapLayerReducer = (
 ): IState => {
 	switch (action.type) {
 		case ActionType.SET_MAP_TYPE:
-			console.log(ActionType.SET_MAP_TYPE, action.payload);
+			console.table({ action });
 			return {
 				...state,
-				mapLayer: action.payload,
+				mapLayer: action.mapLayer,
+			};
+
+		case ActionType.TOGGLE_MODEL:
+			console.table({ action });
+			return {
+				...state,
+				isModelVisible: action.isModelVisible,
 			};
 
 		default:

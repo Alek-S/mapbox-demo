@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-import { useState, useContext, FunctionComponent } from 'react';
+import { useState, useContext, FunctionComponent, useEffect } from 'react';
 import styled from 'styled-components';
 import ReactMapGL, { Layer } from 'react-map-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
@@ -11,6 +11,8 @@ import {
 } from '@utils/constants';
 import { StateContext } from '@store/Context';
 import { MapLayer } from '@store/initialState';
+
+import { modelLayer } from '@components/Map/modelLayer';
 
 const buildingLayer = {
 	id: '3d-buildings',
@@ -56,6 +58,7 @@ const Map: FunctionComponent = () => {
 		longitude: -87.6352603,
 		zoom: 15.5,
 		pitch: 50,
+		antialias: true,
 	});
 
 	const getMapStyle = () => {
@@ -75,6 +78,7 @@ const Map: FunctionComponent = () => {
 				mapboxApiAccessToken={MAPBOX_TOKEN}
 			>
 				<Layer {...buildingLayer} />
+				{state.isModelVisible && <Layer {...modelLayer} />}
 			</ReactMapGL>
 		</StyledMap>
 	);

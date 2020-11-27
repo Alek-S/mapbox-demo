@@ -14,6 +14,11 @@ const GlobalStyles = createGlobalStyle`
     }
 
     main {}
+
+		.MuiFormControlLabel-label {
+			font-weight: 500 !important;
+			font-family: 'Rajdhani', sans-serif !important;
+		}
 `;
 
 export default GlobalStyles;
