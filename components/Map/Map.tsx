@@ -30,11 +30,7 @@ const Map: FunctionComponent = () => {
 		pitch: 50,
 		antialias: true,
 	});
-	const [marker, setMarker] = useState({
-		latitude: 41.89237617397896,
-		longitude: -87.63408038583424,
-	});
-	const [isPaused , setPaused] = useState<boolean>(false);
+	const [isPaused, setPaused] = useState<boolean>(false);
 
 	const getMapStyle = () => {
 		return state.mapLayer === MapLayer.default
@@ -43,6 +39,7 @@ const Map: FunctionComponent = () => {
 	};
 
 	const addNewMarker = event => {
+		// dispatch only if not currently in debounce
 		if (isPaused === false) {
 			dispatch({
 				type: ActionType.ADD_MARKER,

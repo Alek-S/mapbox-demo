@@ -27,7 +27,7 @@ const Pin: FunctionComponent<Props> = (props: Props) => {
 				humidity: data?.main?.humidity,
 				temp: kelvinToFahrenheit(data?.main?.temp),
 				feelsLike: kelvinToFahrenheit(data?.main?.feels_like),
-				description: data?.weather[0].description,
+				description: data?.weather[0]?.description,
 				wind: data?.wind?.speed,
 			});
 		});
