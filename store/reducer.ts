@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import { IState, MapLayer, MarkerData } from '@store/initialState';
 
 /* eslint-disable no-shadow */

@@ -73,7 +73,7 @@ const StyledControl = styled.div`
 	width: fit-content;
 	font-size: 1rem;
 	z-index: 10;
-	background-color: rgba(255,255,255,0.92);
+	background-color: rgba(255, 255, 255, 0.92);
 	border-radius: 0.5rem;
 	box-shadow: ${({ theme }) => theme.shadows.primary};
 	overflow: hidden;

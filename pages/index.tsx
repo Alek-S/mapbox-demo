@@ -4,6 +4,8 @@ import { FunctionComponent } from 'react';
 import Map from '@components/Map/Map';
 import LayerControl from '@components/LayerControl/LayerControl';
 import AddMarkerDialog from '@components/AddMarkerDialog/AddMarkerDialog';
+import PinDialog from '@components/PinDialog/PinDialog';
+
 import { StateProvider } from '@store/Context';
 
 const Home: FunctionComponent = () => (
@@ -26,6 +28,7 @@ const Home: FunctionComponent = () => (
 			<LayerControl />
 			<Map />
 			<AddMarkerDialog />
+			<PinDialog />
 		</main>
 	</StateProvider>
 );

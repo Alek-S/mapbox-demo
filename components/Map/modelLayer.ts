@@ -37,11 +37,11 @@ export const modelLayer = {
 		this.scene = new THREE.Scene();
 
 		// red colored lights too see it better on map
-		const directionalLight = new THREE.DirectionalLight(0xf54299);
+		const directionalLight = new THREE.DirectionalLight(0xe3325a);
 		directionalLight.position.set(0, -70, 100).normalize();
 		this.scene.add(directionalLight);
 
-		const directionalLight2 = new THREE.DirectionalLight(0xf54299);
+		const directionalLight2 = new THREE.DirectionalLight(0xe3325a);
 		directionalLight2.position.set(0, 70, 100).normalize();
 		this.scene.add(directionalLight2);
 
@@ -49,7 +49,7 @@ export const modelLayer = {
 		const loader = new GLTFLoader();
 		loader.load(
 			'https://docs.mapbox.com/mapbox-gl-js/assets/34M_17/34M_17.gltf',
-			(model) => this.scene.add(model.scene)
+			model => this.scene.add(model.scene)
 		);
 		this.map = map;
 
