@@ -9,6 +9,10 @@ const pinStyle = {
 	stroke: 'none',
 };
 
+const kelvinToFahrenheit = (k: number): number => {
+	return k && Number(((k - 273.15) * (9 / 5) + 32).toFixed(1));
+};
+
 /** UI for the map pin displayed by mapbox marker */
 const Pin: FunctionComponent<Props> = (props: Props) => {
 	const [weather, setWeather] = useState<IWeather>();
@@ -21,8 +25,8 @@ const Pin: FunctionComponent<Props> = (props: Props) => {
 		axios.get(url).then(({ data }) => {
 			setWeather({
 				humidity: data?.main?.humidity,
-				temp: data?.main?.temp,
-				feelsLike: data?.main?.feels_like,
+				temp: kelvinToFahrenheit(data?.main?.temp),
+				feelsLike: kelvinToFahrenheit(data?.main?.feels_like),
 				description: data?.weather[0].description,
 				wind: data?.wind?.speed,
 			});
