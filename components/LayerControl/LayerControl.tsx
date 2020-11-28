@@ -11,8 +11,10 @@ import { ActionType } from '@store/reducer';
 import { MapLayer } from '@store/initialState';
 
 const LayerControl: FunctionComponent = () => {
-	const [isModelVisible, setModelVisible] = useState<boolean>(true);
+	// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+	// @ts-ignore
 	const { state, dispatch } = useContext(StateContext);
+	const [isModelVisible, setModelVisible] = useState<boolean>(true);
 
 	const handleLayerChange = event => {
 		dispatch({

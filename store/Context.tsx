@@ -9,6 +9,8 @@ const StateProvider: FunctionComponent = ({ children }) => {
 	const [state, dispatch] = useReducer(mapLayerReducer, initialState);
 
 	return (
+		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+		// @ts-ignore
 		<StateContext.Provider value={{ state, dispatch }}>
 			{children}
 		</StateContext.Provider>

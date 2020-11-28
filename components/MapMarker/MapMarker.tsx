@@ -8,6 +8,8 @@ import Pin, { IWeather } from '@components/Pin/Pin';
 
 /** Individual Marker UI component on the map */
 const MapMarker: FunctionComponent<Props> = (props: Props) => {
+	// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+	// @ts-ignore
 	const { dispatch } = useContext(StateContext);
 
 	const onMarkerDragEnd = (event: MarkerEvent) => {
@@ -67,6 +69,7 @@ interface Props {
 	markerIndex: number;
 	lat: number;
 	lng: number;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	setPaused: any;
 }
 

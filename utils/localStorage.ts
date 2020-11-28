@@ -1,4 +1,5 @@
-import { MarkerData } from "@store/initialState";
+/* eslint-disable no-undef */
+import { MarkerData } from '@store/initialState';
 
 /** Add all markers to local storage */
 export const storeMarkers = (markers: MarkerData[]): void => {

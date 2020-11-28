@@ -7,6 +7,8 @@ import { StateContext } from '@store/Context';
 import { ActionType } from '@store/reducer';
 
 const AddMarkerDialog: FunctionComponent = () => {
+	// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+	// @ts-ignore
 	const { dispatch } = useContext(StateContext);
 	const [latitude, setLatitude] = useState<number>();
 	const [longitude, setLongitude] = useState<number>();
@@ -77,7 +79,7 @@ const StyledDialog = styled.div`
 	width: fit-content;
 	font-size: 1rem;
 	z-index: 10;
-	background-color:rgba(255,255,255,0.92);
+	background-color: rgba(255, 255, 255, 0.92);
 	border-radius: 0.5rem;
 	box-shadow: ${({ theme }) => theme.shadows.primary};
 	overflow: hidden;

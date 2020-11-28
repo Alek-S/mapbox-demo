@@ -5,6 +5,8 @@ import { StateContext } from '@store/Context';
 import { ActionType } from '@store/reducer';
 
 const PinDialog: FunctionComponent<Props> = (props: Props) => {
+	// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+	// @ts-ignore
 	const { state, dispatch } = useContext(StateContext);
 
 	const removePin = (markerIndex: number) => {
@@ -21,7 +23,12 @@ const PinDialog: FunctionComponent<Props> = (props: Props) => {
 				{state.markers.map((marker, index) => (
 					<PinInfo key={`${marker.lat}-${marker.lng}`}>
 						<h4>Pin {index + 1}</h4>
-						<button className="material-icons" onClick={() => props.updateViewPort(index)}>my_location</button>
+						<button
+							className="material-icons"
+							onClick={() => props.updateViewPort(index)}
+						>
+							my_location
+						</button>
 						<CloseButton type="button" onClick={() => removePin(index)}>
 							&#10005;
 						</CloseButton>
@@ -34,7 +41,7 @@ const PinDialog: FunctionComponent<Props> = (props: Props) => {
 							{marker.lat.toFixed(4)}
 						</p>
 						<p>
-							<span className="emphasis">Longtude:</span>
+							<span className="emphasis">Longitude:</span>
 							{marker.lng.toFixed(4)}
 						</p>
 					</PinInfo>
@@ -45,6 +52,7 @@ const PinDialog: FunctionComponent<Props> = (props: Props) => {
 };
 
 interface Props {
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	updateViewPort: any;
 }
 
@@ -64,7 +72,7 @@ const StyledPinDialog = styled.div`
 
 	.material-icons {
 		cursor: pointer;
-		font-size: .75em;
+		font-size: 0.75em;
 		position: relative;
 		right: -10px;
 		top: 1px;

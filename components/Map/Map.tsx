@@ -19,6 +19,8 @@ import { ActionType } from '@store/reducer';
 
 /** Full bleed Mapbox Component */
 const Map: FunctionComponent = () => {
+	// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+	// @ts-ignore
 	const { state, dispatch } = useContext(StateContext);
 	const [viewport, setViewport] = useState({
 		width: '100%',
@@ -35,7 +37,7 @@ const Map: FunctionComponent = () => {
 	useEffect(() => {
 		// on load, read in markers saved in local storage
 		dispatch({ type: ActionType.READ_STORED_MARKERS });
-	}, []);
+	}, [dispatch]);
 
 	const getMapStyle = () => {
 		return state.mapLayer === MapLayer.default
