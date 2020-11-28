@@ -23,7 +23,6 @@ const MapMarker: FunctionComponent<Props> = (props: Props) => {
 
 	const removeMarker = () => {
 		props.setPaused(true);
-		console.log('close ', props.markerIndex);
 		dispatch({
 			type: ActionType.REMOVE_MARKER,
 			markerIndex: props.markerIndex,

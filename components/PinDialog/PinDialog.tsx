@@ -7,6 +7,13 @@ import { ActionType } from '@store/reducer';
 const PinDialog: FunctionComponent = () => {
 	const { state, dispatch } = useContext(StateContext);
 
+	const removePin = (markerIndex: number) => {
+		dispatch({
+			type: ActionType.REMOVE_MARKER,
+			markerIndex,
+		});
+	};
+
 	return (
 		<StyledPinDialog>
 			<StyledHeader>Current Pins</StyledHeader>
@@ -14,6 +21,9 @@ const PinDialog: FunctionComponent = () => {
 				{state.markers.map((marker, index) => (
 					<PinInfo key={`${marker.lat}-${marker.lng}`}>
 						<h4>Pin {index + 1}</h4>
+						<CloseButton type="button" onClick={() => removePin(index)}>
+							&#10005;
+						</CloseButton>
 						<p>
 							<span className="emphasis">Latitude:</span>
 							{marker.lat.toFixed(4)}
@@ -66,6 +76,7 @@ const PinInfo = styled.div`
 		margin: 0;
 		padding: 0;
 		font-size: 1rem;
+		display: inline;
 	}
 
 	p {
@@ -78,6 +89,16 @@ const PinInfo = styled.div`
 		font-weight: 600;
 		margin-right: 0.5rem;
 	}
+`;
+
+const CloseButton = styled.button`
+	background-color: ${({ theme }) => theme.colors.primary};
+	color: white;
+	border: none;
+	border-radius: 0.35rem;
+	margin-left: 3rem;
+	margin-bottom: 0.5rem;
+	font-size: 0.7rem;
 `;
 
 export default PinDialog;

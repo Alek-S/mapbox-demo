@@ -56,7 +56,7 @@ const AddMarkerDialog: FunctionComponent = () => {
 					color="secondary"
 					size="small"
 					onClick={addMarker}
-					style={{ marginBottom: '1.25rem' }}
+					style={{ marginBottom: '1.75rem' }}
 				>
 					Add Marker
 				</Button>
