@@ -8,5 +8,6 @@ export const storeMarkers = (markers: MarkerData[]): void => {
 
 /** Read all saved markers from local storage */
 export const getStoredMarkers = (): MarkerData[] => {
-	return JSON.parse(localStorage.getItem('markers'));
+	const stored = JSON.parse(localStorage.getItem('markers'));
+	return stored ? stored : [];
 };
