@@ -1,4 +1,4 @@
-import { useState, useContext, FunctionComponent } from 'react';
+import { useState, useContext, FunctionComponent, useEffect } from 'react';
 import styled from 'styled-components';
 import ReactMapGL, { Layer } from 'react-map-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
@@ -31,6 +31,11 @@ const Map: FunctionComponent = () => {
 		transitionDuration: null,
 	});
 	const [isPaused, setPaused] = useState<boolean>(false);
+
+	useEffect(() => {
+		// on load, read in markers saved in local storage
+		dispatch({ type: ActionType.READ_STORED_MARKERS });
+	}, []);
 
 	const getMapStyle = () => {
 		return state.mapLayer === MapLayer.default

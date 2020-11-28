@@ -1,6 +1,7 @@
 /* eslint-disable no-undef */
 import { IWeather } from '@components/Pin/Pin';
 import { IState, MapLayer, MarkerData } from '@store/initialState';
+import { getStoredMarkers, storeMarkers } from '@utils/localStorage';
 
 /* eslint-disable no-shadow */
 export interface IReducerAction {
@@ -19,6 +20,7 @@ export enum ActionType {
 	ADD_MARKER_WEATHER = 'ADD_MARKER_WEATHER',
 	MODIFY_MARKER = 'MODIFY_MARKER',
 	REMOVE_MARKER = 'REMOVE_MARKER',
+	READ_STORED_MARKERS = 'READ_STORED_MARKERS',
 }
 
 export const mapLayerReducer = (
@@ -27,55 +29,59 @@ export const mapLayerReducer = (
 ): IState => {
 	switch (action.type) {
 		case ActionType.SET_MAP_TYPE:
-			console.table({ action });
 			return {
 				...state,
 				mapLayer: action.mapLayer,
 			};
 
 		case ActionType.TOGGLE_MODEL:
-			console.table({ action });
 			return {
 				...state,
 				isModelVisible: action.isModelVisible,
 			};
 
 		case ActionType.ADD_MARKER:
-			console.log({ action });
+			storeMarkers(state.markers.concat([action.markerData]));
 			return {
 				...state,
 				markers: state.markers.concat([action.markerData]),
 			};
 
 		case ActionType.ADD_MARKER_WEATHER:
-			console.log({ action });
-			const markerWithWeather: MarkerData[] = [...state.markers];
-			markerWithWeather[action.markerIndex] = {
-				lat: markerWithWeather[action.markerIndex].lat,
-				lng: markerWithWeather[action.markerIndex].lng,
+			const markersWithWeather: MarkerData[] = [...state.markers];
+			markersWithWeather[action.markerIndex] = {
+				lat: markersWithWeather[action.markerIndex].lat,
+				lng: markersWithWeather[action.markerIndex].lng,
 				...action.markerWeather,
 			};
+			storeMarkers(markersWithWeather);
 			return {
 				...state,
-				markers: markerWithWeather,
+				markers: markersWithWeather,
 			};
 
 		case ActionType.MODIFY_MARKER:
-			console.log({ action });
 			const newMarker: MarkerData[] = [...state.markers];
 			newMarker[action.markerIndex] = action.markerData;
+			storeMarkers(newMarker);
 			return {
 				...state,
 				markers: newMarker,
 			};
 
 		case ActionType.REMOVE_MARKER:
-			console.table({ action });
 			const updatedMarker: MarkerData[] = [...state.markers];
 			updatedMarker.splice(action.markerIndex, 1);
+			storeMarkers(updatedMarker);
 			return {
 				...state,
 				markers: updatedMarker,
+			};
+
+		case ActionType.READ_STORED_MARKERS:
+			return {
+				...state,
+				markers: getStoredMarkers(),
 			};
 
 		default:
