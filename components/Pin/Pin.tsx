@@ -16,7 +16,7 @@ const kelvinToFahrenheit = (k: number): number => {
 /** UI for the map pin displayed by mapbox marker */
 const Pin: FunctionComponent<Props> = (props: Props) => {
 	const [weather, setWeather] = useState<IWeather>();
-	const { size = 20 } = props;
+	const { size } = props;
 
 	useEffect(() => {
 		// eslint-disable-next-line prettier/prettier
@@ -116,6 +116,7 @@ const StyledWeather = styled.div`
 `;
 
 const CloseButton = styled.button`
+	cursor: pointer;
 	background-color: ${({ theme }) => theme.colors.primary};
 	color: white;
 	border: none;

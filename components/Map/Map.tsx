@@ -1,6 +1,6 @@
 import { useState, useContext, FunctionComponent } from 'react';
 import styled from 'styled-components';
-import ReactMapGL, { Layer, Marker } from 'react-map-gl';
+import ReactMapGL, { Layer } from 'react-map-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 
 import {
@@ -8,15 +8,14 @@ import {
 	MAP_STYLE_SATELLITE,
 	MAP_STYLE_LIGHT,
 } from '@utils/constants';
-import Pin from '@components/Pin/Pin';
 import { modelLayer } from '@components/Map/modelLayer';
 import { buildingLayer } from '@components/Map/extrudeBuildingLayer';
 import MapMarker from '@components/MapMarker/MapMarker';
+import PinDialog from '@components/PinDialog/PinDialog';
 
 import { StateContext } from '@store/Context';
 import { MapLayer } from '@store/initialState';
 import { ActionType } from '@store/reducer';
-
 
 /** Full bleed Mapbox Component */
 const Map: FunctionComponent = () => {
@@ -29,6 +28,7 @@ const Map: FunctionComponent = () => {
 		zoom: 15.5,
 		pitch: 50,
 		antialias: true,
+		transitionDuration: null,
 	});
 	const [isPaused, setPaused] = useState<boolean>(false);
 
@@ -51,8 +51,22 @@ const Map: FunctionComponent = () => {
 		}
 	};
 
+	const updateViewPort = (markerIndex: number) => {
+		setViewport({
+			width: '100%',
+			height: '100%',
+			latitude: state.markers[markerIndex].lat,
+			longitude: state.markers[markerIndex].lng,
+			zoom: 17,
+			pitch: 50,
+			antialias: true,
+			transitionDuration: 500,
+		});
+	};
+
 	return (
 		<StyledMap>
+			<PinDialog updateViewPort={updateViewPort} />
 			<ReactMapGL
 				onClick={addNewMarker}
 				{...viewport}

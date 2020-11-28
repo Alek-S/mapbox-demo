@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { StateContext } from '@store/Context';
 import { ActionType } from '@store/reducer';
 
-const PinDialog: FunctionComponent = () => {
+const PinDialog: FunctionComponent<Props> = (props: Props) => {
 	const { state, dispatch } = useContext(StateContext);
 
 	const removePin = (markerIndex: number) => {
@@ -21,6 +21,7 @@ const PinDialog: FunctionComponent = () => {
 				{state.markers.map((marker, index) => (
 					<PinInfo key={`${marker.lat}-${marker.lng}`}>
 						<h4>Pin {index + 1}</h4>
+						<button className="material-icons" onClick={() => props.updateViewPort(index)}>my_location</button>
 						<CloseButton type="button" onClick={() => removePin(index)}>
 							&#10005;
 						</CloseButton>
@@ -43,6 +44,10 @@ const PinDialog: FunctionComponent = () => {
 	);
 };
 
+interface Props {
+	updateViewPort: any;
+}
+
 const StyledPinDialog = styled.div`
 	position: fixed;
 	width: fit-content;
@@ -56,6 +61,17 @@ const StyledPinDialog = styled.div`
 	top: 1rem;
 	left: 1rem;
 	font-weight: 500;
+
+	.material-icons {
+		cursor: pointer;
+		font-size: .75em;
+		position: relative;
+		right: -10px;
+		top: 1px;
+		border: solid 1px black;
+		border-radius: 0.35rem;
+		background-color: white;
+	}
 `;
 
 const StyledHeader = styled.h2`
@@ -96,6 +112,7 @@ const PinInfo = styled.div`
 `;
 
 const CloseButton = styled.button`
+	cursor: pointer;
 	background-color: ${({ theme }) => theme.colors.primary};
 	color: white;
 	border: none;
