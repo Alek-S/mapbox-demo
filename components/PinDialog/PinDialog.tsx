@@ -25,6 +25,10 @@ const PinDialog: FunctionComponent = () => {
 							&#10005;
 						</CloseButton>
 						<p>
+							<span className="emphasis">Temp:</span>
+							{marker?.temp}
+						</p>
+						<p>
 							<span className="emphasis">Latitude:</span>
 							{marker.lat.toFixed(4)}
 						</p>

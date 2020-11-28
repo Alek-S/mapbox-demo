@@ -1,3 +1,5 @@
+import { IWeather } from '@components/Pin/Pin';
+
 /* eslint-disable no-shadow */
 export enum MapLayer {
 	default = 'default',
@@ -13,6 +15,7 @@ export interface IState {
 export interface MarkerData {
 	lat: number;
 	lng: number;
+	weather?: IWeather;
 }
 
 const initialState: IState = {

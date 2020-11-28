@@ -4,7 +4,7 @@ import { Marker } from 'react-map-gl';
 import { StateContext } from '@store/Context';
 import { ActionType } from '@store/reducer';
 
-import Pin from '@components/Pin/Pin';
+import Pin, { IWeather } from '@components/Pin/Pin';
 
 /** Individual Marker UI component on the map */
 const MapMarker: FunctionComponent<Props> = (props: Props) => {
@@ -35,6 +35,14 @@ const MapMarker: FunctionComponent<Props> = (props: Props) => {
 		}, 500);
 	};
 
+	const addMarkerWeather = (weather: IWeather) => {
+		dispatch({
+			type: ActionType.ADD_MARKER_WEATHER,
+			markerIndex: props.markerIndex,
+			markerWeather: weather,
+		});
+	};
+
 	return (
 		<Marker
 			longitude={props.lng}
@@ -49,6 +57,7 @@ const MapMarker: FunctionComponent<Props> = (props: Props) => {
 				longitude={props.lng}
 				latitude={props.lat}
 				onClose={removeMarker}
+				addMarkerWeather={addMarkerWeather}
 			/>
 		</Marker>
 	);

@@ -30,6 +30,14 @@ const Pin: FunctionComponent<Props> = (props: Props) => {
 				description: data?.weather[0]?.description,
 				wind: data?.wind?.speed,
 			});
+
+			props.addMarkerWeather({
+				humidity: data?.main?.humidity,
+				temp: kelvinToFahrenheit(data?.main?.temp),
+				feelsLike: kelvinToFahrenheit(data?.main?.feels_like),
+				description: data?.weather[0]?.description,
+				wind: data?.wind?.speed,
+			});
 		});
 	}, []);
 
@@ -74,9 +82,10 @@ interface Props {
 	longitude: number;
 	latitude: number;
 	onClose: unknown;
+	addMarkerWeather: any;
 }
 
-interface IWeather {
+export interface IWeather {
 	humidity: number;
 	temp: number;
 	description: string;

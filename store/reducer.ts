@@ -1,4 +1,5 @@
 /* eslint-disable no-undef */
+import { IWeather } from '@components/Pin/Pin';
 import { IState, MapLayer, MarkerData } from '@store/initialState';
 
 /* eslint-disable no-shadow */
@@ -8,12 +9,14 @@ export interface IReducerAction {
 	isModelVisible: boolean;
 	markerData: MarkerData;
 	markerIndex: number;
+	markerWeather: IWeather;
 }
 
 export enum ActionType {
 	SET_MAP_TYPE = 'SET_MAP_TYPE',
 	TOGGLE_MODEL = 'TOGGLE_MODEL',
 	ADD_MARKER = 'ADD_MARKER',
+	ADD_MARKER_WEATHER = 'ADD_MARKER_WEATHER',
 	MODIFY_MARKER = 'MODIFY_MARKER',
 	REMOVE_MARKER = 'REMOVE_MARKER',
 }
@@ -42,6 +45,19 @@ export const mapLayerReducer = (
 			return {
 				...state,
 				markers: state.markers.concat([action.markerData]),
+			};
+
+		case ActionType.ADD_MARKER_WEATHER:
+			console.log({ action });
+			const markerWithWeather: MarkerData[] = [...state.markers];
+			markerWithWeather[action.markerIndex] = {
+				lat: markerWithWeather[action.markerIndex].lat,
+				lng: markerWithWeather[action.markerIndex].lng,
+				...action.markerWeather,
+			};
+			return {
+				...state,
+				markers: markerWithWeather,
 			};
 
 		case ActionType.MODIFY_MARKER:
