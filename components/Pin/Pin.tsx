@@ -35,6 +35,9 @@ const Pin: FunctionComponent<Props> = (props: Props) => {
 				<path d={ICON} />
 			</svg>
 			<StyledWeather>
+				<CloseButton type="button" onClick={props.onClose}>
+					&#10005;
+				</CloseButton>
 				<p>
 					<span className="emphasis">Conditions:</span> {weather?.description}
 				</p>
@@ -64,6 +67,7 @@ interface Props {
 	size: number;
 	longitude: number;
 	latitude: number;
+	onClose: unknown;
 }
 
 interface IWeather {
@@ -94,6 +98,16 @@ const StyledWeather = styled.div`
 	.emphasis {
 		font-weight: 600;
 	}
+`;
+
+const CloseButton = styled.button`
+	background-color: ${({ theme }) => theme.colors.primary};
+	color: white;
+	border: none;
+	border-radius: 0.35rem;
+	padding-left: 0.25rem;
+	padding-right: 0.25rem;
+	font-size: 0.7rem;
 `;
 
 export default Pin;

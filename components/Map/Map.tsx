@@ -34,6 +34,7 @@ const Map: FunctionComponent = () => {
 		latitude: 41.89237617397896,
 		longitude: -87.63408038583424,
 	});
+	const [isPaused , setPaused] = useState<boolean>(false);
 
 	const getMapStyle = () => {
 		return state.mapLayer === MapLayer.default
@@ -42,21 +43,15 @@ const Map: FunctionComponent = () => {
 	};
 
 	const addNewMarker = event => {
-		dispatch({
-			type: ActionType.ADD_MARKER,
-			markerData: {
-				lng: event.lngLat[0],
-				lat: event.lngLat[1],
-			},
-		});
-	};
-
-	const onMarkerDragEnd = event => {
-		console.log('onMarkerDragEnd', event.lngLat[0], event.lngLat[1]);
-		setMarker({
-			longitude: event.lngLat[0],
-			latitude: event.lngLat[1],
-		});
+		if (isPaused === false) {
+			dispatch({
+				type: ActionType.ADD_MARKER,
+				markerData: {
+					lng: event.lngLat[0],
+					lat: event.lngLat[1],
+				},
+			});
+		}
 	};
 
 	return (
@@ -76,9 +71,8 @@ const Map: FunctionComponent = () => {
 						lng={marker.lng}
 						lat={marker.lat}
 						markerIndex={index}
-					>
-						<Pin size={20} />
-					</MapMarker>
+						setPaused={setPaused}
+					/>
 				))}
 				<Layer {...buildingLayer} />
 				{state.isModelVisible && <Layer {...modelLayer} />}

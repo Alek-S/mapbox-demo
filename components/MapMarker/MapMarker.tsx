@@ -21,6 +21,18 @@ const MapMarker: FunctionComponent<Props> = (props: Props) => {
 		});
 	};
 
+	const removeMarker = () => {
+		props.setPaused(true);
+		console.log('close ', props.markerIndex);
+		dispatch({
+			type: ActionType.REMOVE_MARKER,
+			markerIndex: props.markerIndex,
+		});
+		setTimeout(() => {
+			props.setPaused(false);
+		}, 500);
+	};
+
 	return (
 		<Marker
 			longitude={props.lng}
@@ -30,7 +42,12 @@ const MapMarker: FunctionComponent<Props> = (props: Props) => {
 			onDragEnd={onMarkerDragEnd}
 			draggable
 		>
-			<Pin size={20} longitude={props.lng} latitude={props.lat} />
+			<Pin
+				size={20}
+				longitude={props.lng}
+				latitude={props.lat}
+				onClose={removeMarker}
+			/>
 		</Marker>
 	);
 };
@@ -39,6 +56,7 @@ interface Props {
 	markerIndex: number;
 	lat: number;
 	lng: number;
+	setPaused: any;
 }
 
 interface MarkerEvent {

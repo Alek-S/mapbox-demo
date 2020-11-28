@@ -3,7 +3,7 @@ const theme = {
 		family: '"Rajdhani", sans-serif',
 	},
 	colors: {
-		primary: 'red',
+		primary: '#E3325A',
 	},
 	shadows: {
 		primary: '0px 0px 10px 0px rgba(0,0,0,0.25)',

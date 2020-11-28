@@ -14,6 +14,7 @@ export enum ActionType {
 	TOGGLE_MODEL = 'TOGGLE_MODEL',
 	ADD_MARKER = 'ADD_MARKER',
 	MODIFY_MARKER = 'MODIFY_MARKER',
+	REMOVE_MARKER = 'REMOVE_MARKER',
 }
 
 export const mapLayerReducer = (
@@ -46,10 +47,18 @@ export const mapLayerReducer = (
 			console.log({ action });
 			const newMarker: MarkerData[] = [...state.markers];
 			newMarker[action.markerIndex] = action.markerData;
-
 			return {
 				...state,
 				markers: newMarker,
+			};
+
+		case ActionType.REMOVE_MARKER:
+			console.table({ action });
+			const updatedMarker: MarkerData[] = [...state.markers];
+			updatedMarker.splice(action.markerIndex, 1);
+			return {
+				...state,
+				markers: updatedMarker,
 			};
 
 		default:
