@@ -17,7 +17,6 @@ npm start
 #### Run in Dev Mode:
 `npm run dev`
 
----
 
 # Stack
 - Next.js
