@@ -96,7 +96,7 @@ const CloseButton = styled.button`
 	color: white;
 	border: none;
 	border-radius: 0.35rem;
-	margin-left: 3rem;
+	margin-left: 3.5rem;
 	margin-bottom: 0.5rem;
 	font-size: 0.7rem;
 `;

@@ -39,9 +39,11 @@ const Pin: FunctionComponent<Props> = (props: Props) => {
 				<path d={ICON} />
 			</svg>
 			<StyledWeather>
-				<CloseButton type="button" onClick={props.onClose}>
-					&#10005;
-				</CloseButton>
+				<CloseContainer>
+					<CloseButton type="button" onClick={props.onClose}>
+						&#10005;
+					</CloseButton>
+				</CloseContainer>
 				<p>
 					<span className="emphasis">Conditions:</span> {weather?.description}
 				</p>
@@ -112,6 +114,13 @@ const CloseButton = styled.button`
 	padding-left: 0.25rem;
 	padding-right: 0.25rem;
 	font-size: 0.7rem;
+`;
+
+const CloseContainer = styled.div`
+	display: flex;
+	justify-content: flex-end;
+	width: 100%;
+	margin-bottom: 0.5rem;
 `;
 
 export default Pin;
