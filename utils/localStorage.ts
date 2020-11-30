@@ -11,3 +11,8 @@ export const getStoredMarkers = (): MarkerData[] => {
 	const stored = JSON.parse(localStorage.getItem('markers'));
 	return stored ? stored : [];
 };
+
+/** Remove local storage entry */
+export const clearStoredMarkers = (): void => {
+	localStorage.removeItem('markers');
+};

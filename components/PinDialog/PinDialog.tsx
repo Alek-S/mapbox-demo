@@ -16,6 +16,10 @@ const PinDialog: FunctionComponent<Props> = (props: Props) => {
 		});
 	};
 
+	const handleClearAll = () => {
+		dispatch({ type: ActionType.CLEAR_ALL_MARKERS });
+	};
+
 	return (
 		<StyledPinDialog>
 			<StyledHeader>Current Pins</StyledHeader>
@@ -47,6 +51,11 @@ const PinDialog: FunctionComponent<Props> = (props: Props) => {
 					</PinInfo>
 				))}
 			</PinSection>
+			{state.markers.length > 0 && (
+				<ClearButton type="button" onClick={handleClearAll}>
+					Clear All
+				</ClearButton>
+			)}
 		</StyledPinDialog>
 	);
 };
@@ -128,6 +137,22 @@ const CloseButton = styled.button`
 	margin-left: 3.5rem;
 	margin-bottom: 0.5rem;
 	font-size: 0.7rem;
+`;
+
+const ClearButton = styled.button`
+	cursor: pointer;
+	outline: none;
+	border: none;
+	font-size: 1rem;
+	font-weight: 500;
+	letter-spacing: 1px;
+	width: 100%;
+	background-color: ${({ theme }) => theme.colors.primary};
+	color: white;
+	font-family: ${({ theme }) => theme.font.family};
+	padding: 0.5rem;
+	margin: 0;
+	outline: none;
 `;
 
 export default PinDialog;

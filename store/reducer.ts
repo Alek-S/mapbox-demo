@@ -1,7 +1,11 @@
 /* eslint-disable no-undef */
 import { IWeather } from '@components/Pin/Pin';
 import { IState, MapLayer, MarkerData } from '@store/initialState';
-import { getStoredMarkers, storeMarkers } from '@utils/localStorage';
+import {
+	clearStoredMarkers,
+	getStoredMarkers,
+	storeMarkers,
+} from '@utils/localStorage';
 
 /* eslint-disable no-shadow */
 export interface IReducerAction {
@@ -21,6 +25,7 @@ export enum ActionType {
 	MODIFY_MARKER = 'MODIFY_MARKER',
 	REMOVE_MARKER = 'REMOVE_MARKER',
 	READ_STORED_MARKERS = 'READ_STORED_MARKERS',
+	CLEAR_ALL_MARKERS = 'CLEAR_ALL_MARKERS',
 }
 
 export const mapLayerReducer = (
@@ -82,6 +87,13 @@ export const mapLayerReducer = (
 			return {
 				...state,
 				markers: getStoredMarkers(),
+			};
+
+		case ActionType.CLEAR_ALL_MARKERS:
+			clearStoredMarkers();
+			return {
+				...state,
+				markers: [],
 			};
 
 		default:

@@ -5,6 +5,7 @@ import Button from '@material-ui/core/Button';
 
 import { StateContext } from '@store/Context';
 import { ActionType } from '@store/reducer';
+import { validateLat, validateLng } from '@utils/validate';
 
 const AddMarkerDialog: FunctionComponent = () => {
 	// eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -12,26 +13,37 @@ const AddMarkerDialog: FunctionComponent = () => {
 	const { dispatch } = useContext(StateContext);
 	const [latitude, setLatitude] = useState<number>();
 	const [longitude, setLongitude] = useState<number>();
+	const [latError, setLatError] = useState(false);
+	const [lngError, setLngError] = useState(false);
+
+	const checkValue = (lat: number, lng: number): boolean => {
+		setLatError(!validateLat(lat));
+		setLngError(!validateLng(lng));
+		return !!(validateLat(lat) && validateLng(lng));
+	};
 
 	const addMarker = () => {
 		if (latitude && longitude) {
-			dispatch({
-				type: ActionType.ADD_MARKER,
-				markerData: {
-					lng: longitude,
-					lat: latitude,
-				},
-			});
+			if (checkValue(latitude, longitude)) {
+				dispatch({
+					type: ActionType.ADD_MARKER,
+					markerData: {
+						lng: longitude,
+						lat: latitude,
+					},
+				});
+			}
 		}
 	};
 
 	return (
 		<DialogContainer>
-			<StyledDialog>
+			<StyledDialog className={(latError || lngError) && 'error'}>
 				<StyledHeader>
 					Add Marker <br /> (or click map)
 				</StyledHeader>
 				<TextField
+					error={latError}
 					id="latitude"
 					label="Latitude"
 					variant="outlined"
@@ -63,6 +75,11 @@ const AddMarkerDialog: FunctionComponent = () => {
 					Add Marker
 				</Button>
 			</StyledDialog>
+			{(latError || lngError) && (
+				<ErrorDialog>
+					Invalid {latError ? 'latitude' : 'longitude'} range
+				</ErrorDialog>
+			)}
 		</DialogContainer>
 	);
 };
@@ -71,21 +88,31 @@ const DialogContainer = styled.div`
 	position: fixed;
 	bottom: 3rem;
 	display: flex;
+	flex-direction: column;
 	justify-content: center;
 	width: 100%;
 `;
 
 const StyledDialog = styled.div`
 	width: fit-content;
+	height: 4.8rem;
 	font-size: 1rem;
 	z-index: 10;
+	margin-left: auto;
+	margin-right: auto;
 	background-color: rgba(255, 255, 255, 0.92);
+	border: 1px solid rgba(255, 255, 255, 0.92);
 	border-radius: 0.5rem;
 	box-shadow: ${({ theme }) => theme.shadows.primary};
 	overflow: hidden;
 	padding: 0;
 	padding-right: 1.5rem;
 	font-weight: 500;
+	transition: all 1s;
+
+	&.error {
+		border-color: ${({ theme }) => theme.colors.primary};
+	}
 `;
 
 const StyledHeader = styled.h2`
@@ -103,6 +130,17 @@ const StyledHeader = styled.h2`
 	word-wrap: break-word;
 	display: inline-block;
 	width: 120px;
+`;
+
+const ErrorDialog = styled.div`
+	background-color: ${({ theme }) => theme.colors.primary};
+	width: 200px;
+	margin-left: auto;
+	margin-right: auto;
+	color: white;
+	text-align: center;
+	padding: 0.5rem;
+	border-radius: 0 0 5px 5px;
 `;
 
 export default AddMarkerDialog;
